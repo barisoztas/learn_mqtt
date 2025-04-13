@@ -1,12 +1,12 @@
-# python 3.11
-
+import logging
 import random
 
+import click
 from paho.mqtt import client as mqtt_client
 
 broker = "broker.emqx.io"
 port = 1883
-topic = "python/mqtt"
+topic = "python/mqtt/clock"
 # Generate a Client ID with the subscribe prefix.
 client_id = f"subscribe-{random.randint(0, 100)}"
 # username = 'emqx'
@@ -35,6 +35,7 @@ def subscribe(client: mqtt_client):
     client.on_message = on_message
 
 
+@click.command()
 def run():
     client = connect_mqtt()
     subscribe(client)
